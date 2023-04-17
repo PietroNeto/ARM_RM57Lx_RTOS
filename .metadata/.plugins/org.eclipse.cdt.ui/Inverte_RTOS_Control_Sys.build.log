@@ -1,0 +1,8 @@
+
+**** Build of configuration Debug for project Inverte_RTOS_Control_Sys ****
+
+"C:\\ti\\ccs1220\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'Inverte_RTOS_Control_Sys.out' is up to date.
+
+**** Build Finished ****
