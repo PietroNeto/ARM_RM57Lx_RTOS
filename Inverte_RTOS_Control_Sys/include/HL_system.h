@@ -174,21 +174,21 @@ typedef enum
 *
 *   HCLK domain frequency exported from HALCoGen GUI
 */
-#define HCLK_FREQ    150.000F
+#define HCLK_FREQ    300.000F
 
 /** @def RTI_FREQ
 *   @brief RTI Clock frequency exported from HALCoGen GUI
 *
 *   RTI Clock frequency exported from HALCoGen GUI
 */
-#define RTI_FREQ     75.000F
+#define RTI_FREQ     300.000F
 
 /** @def AVCLK1_FREQ
 *   @brief AVCLK1 Domain frequency exported from HALCoGen GUI
 *
 *   AVCLK Domain frequency exported from HALCoGen GUI
 */
-#define AVCLK1_FREQ  75.000F
+#define AVCLK1_FREQ  300.000F
 
 /** @def AVCLK2_FREQ
 *   @brief AVCLK2 Domain frequency exported from HALCoGen GUI
@@ -202,35 +202,35 @@ typedef enum
 *
 *   AVCLK3 Domain frequency exported from HALCoGen GUI
 */
-#define AVCLK3_FREQ  75.000F
+#define AVCLK3_FREQ  300.000F
 
 /** @def AVCLK4_FREQ
 *   @brief AVCLK4 Domain frequency exported from HALCoGen GUI
 *
 *   AVCLK4 Domain frequency exported from HALCoGen GUI
 */
-#define AVCLK4_FREQ  75.000F
+#define AVCLK4_FREQ  300.000F
 
 /** @def VCLK1_FREQ
 *   @brief VCLK1 Domain frequency exported from HALCoGen GUI
 *
 *   VCLK1 Domain frequency exported from HALCoGen GUI
 */
-#define VCLK1_FREQ   75.000F
+#define VCLK1_FREQ   300.000F
 
 /** @def VCLK2_FREQ
 *   @brief VCLK2 Domain frequency exported from HALCoGen GUI
 *
 *   VCLK2 Domain frequency exported from HALCoGen GUI
 */
-#define VCLK2_FREQ   75.000F
+#define VCLK2_FREQ   150.000F
 
 /** @def VCLK3_FREQ
 *   @brief VCLK3 Domain frequency exported from HALCoGen GUI
 *
 *   VCLK3 Domain frequency exported from HALCoGen GUI
 */
-#define VCLK3_FREQ   75.000F
+#define VCLK3_FREQ   150.000F
 
 /** @def VCLK4_FREQ
 *   @brief VCLK4 Domain frequency exported from HALCoGen GUI
@@ -390,7 +390,7 @@ typedef struct system_config_reg
 #define SYS_BMMCR1_CONFIGVALUE  0xAU
 
 #define SYS_CLKCNTL_CONFIGVALUE     ( 0x00000100U \
-                                    | (uint32)((uint32)1U << 16U) \
+                                    | (uint32)((uint32)0U << 16U) \
                                     | (uint32)((uint32)1U << 24U) ) 
                                     
 #define SYS_ECPCNTL_CONFIGVALUE     ( (uint32)((uint32)0U << 24U)\
@@ -409,7 +409,7 @@ typedef struct system_config_reg
 #define SYS2_STCCLKDIV_CONFIGVALUE  0U
 #define SYS2_ECPCNTL1_CONFIGVALUE   0x50000000U
 #define SYS2_CLK2CNTRL_CONFIGVALUE  (1U | 0x00000100U)
-#define SYS2_HCLKCNTL_CONFIGVALUE    1U
+#define SYS2_HCLKCNTL_CONFIGVALUE    0U
 #define SYS2_VCLKACON1_CONFIGVALUE  ( (uint32)((uint32)1U << 24U) \
 									| (uint32)((uint32)1U << 20U) \
                                     | (uint32)((uint32)SYS_VCLK << 16U)\
@@ -427,7 +427,7 @@ typedef struct system_config_reg
                                             | (uint32)((uint32)3U << 4U) \
                                             | (uint32)((uint32)SYS_ACTIVE << 2U) \
                                             | (uint32)((uint32)SYS_ACTIVE << 0U) )
-#define L2FLASH_FRDCNTL_CONFIGVALUE        ((uint32)((uint32)3U << 8U) |  3U)
+#define L2FLASH_FRDCNTL_CONFIGVALUE        ((uint32)((uint32)4U << 8U) |  3U)
 											
 void systemGetConfigValue(system_config_reg_t *config_reg, config_value_type_t type);
 

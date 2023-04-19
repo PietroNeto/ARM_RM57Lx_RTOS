@@ -97,8 +97,8 @@
 #define configUSE_TICK_HOOK			  0
 #define configUSE_TRACE_FACILITY	  0
 #define configUSE_16_BIT_TICKS		  0
-#define configCPU_CLOCK_HZ			  ( ( unsigned portLONG ) 75000000 ) /* Timer clock. */
-#define configTICK_RATE_HZ			  ( ( TickType_t ) 1000 )
+#define configCPU_CLOCK_HZ			  ( ( unsigned portLONG ) 300000000 ) /* Timer clock. */
+#define configTICK_RATE_HZ			  ( ( TickType_t ) 15000 )
 #define configMAX_PRIORITIES		  ( 5 )
 #define configMINIMAL_STACK_SIZE	  ( ( unsigned portSHORT ) 128 )
 #define configTOTAL_HEAP_SIZE		  ( ( size_t ) 8192 )
@@ -131,10 +131,10 @@
 #define configUSE_COUNTING_SEMAPHORES   0
 
 /* Timers */
-#define configUSE_TIMERS                0
-#define configTIMER_TASK_PRIORITY		( 0 )
-#define configTIMER_QUEUE_LENGTH		0
-#define configTIMER_TASK_STACK_DEPTH	( 0 )
+#define configUSE_TIMERS                1
+#define configTIMER_TASK_PRIORITY		( 5 )
+#define configTIMER_QUEUE_LENGTH		1
+#define configTIMER_TASK_STACK_DEPTH	( 64 )
 
 /* USER CODE BEGIN (3) */
 /* USER CODE END */

@@ -20,6 +20,12 @@ source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/
 source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_adc.h
 source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_gio.h
 source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_gio.h
+source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_sci.h
+source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_sci.h
+source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_het.h
+source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_het.h
+source/HL_notification.obj: C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/string.h
+source/HL_notification.obj: C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/xlocale/_string.h
 source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_etpwm.h
 source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_etpwm.h
 source/HL_notification.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_epc.h
@@ -66,6 +72,18 @@ C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_
 C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_gio.h:
 
 C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_gio.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_sci.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_sci.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_het.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_het.h:
+
+C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/string.h:
+
+C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/xlocale/_string.h:
 
 C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_etpwm.h:
 

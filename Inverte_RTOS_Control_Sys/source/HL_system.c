@@ -197,13 +197,13 @@ void setupFlash(void)
 
     /** - Setup flash read mode, address wait states and data wait states */
     flashWREG->FRDCNTL =  0x00000000U
-                       | (uint32)((uint32)3U << 8U)
+                       | (uint32)((uint32)4U << 8U)
                        |  3U;
 
     /** - Setup flash access wait states for bank 7 */
     FSM_WR_ENA_HL    = 0x5U;
     EEPROM_CONFIG_HL = 0x00000002U
-                     | (uint32)((uint32)9U << 16U) ;
+                     | (uint32)((uint32)12U << 16U) ;
 
 /* USER CODE BEGIN (7) */
 /* USER CODE END */
@@ -270,7 +270,7 @@ void mapClocks(void)
 
     /** @b Initialize @b Clock @b Tree: */
     /** - Setup system clock divider for HCLK */
-    systemREG2->HCLKCNTL = 1U;
+    systemREG2->HCLKCNTL = 0U;
 
     /** - Disable / Enable clock domain */
     systemREG1->CDDIS = (uint32)((uint32)0U << 4U ) /* AVCLK1 , 1 - OFF, 0 - ON */
@@ -319,7 +319,7 @@ void mapClocks(void)
     systemREG1->CLKCNTL  = (systemREG1->CLKCNTL & 0xF0FFFFFFU)
                          | (uint32)((uint32)1U << 24U);
     systemREG1->CLKCNTL  = (systemREG1->CLKCNTL & 0xFFF0FFFFU)
-                         | (uint32)((uint32)1U << 16U);
+                         | (uint32)((uint32)0U << 16U);
 
     systemREG2->CLK2CNTRL = (systemREG2->CLK2CNTRL & 0xFFFFFFF0U)
                          | (uint32)((uint32)1U << 0U);

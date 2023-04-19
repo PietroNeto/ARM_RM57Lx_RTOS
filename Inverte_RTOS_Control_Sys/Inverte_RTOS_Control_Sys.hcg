@@ -331,7 +331,9 @@
       <HDRSCI>
         <NAME>HL_sci.h</NAME>
       </HDRSCI>
-      <SRCSCI/>
+      <SRCSCI>
+        <NAME>HL_sci.c</NAME>
+      </SRCSCI>
       <HDRLIN_R>
         <NAME>HL_reg_lin.h</NAME>
       </HDRLIN_R>
@@ -390,7 +392,9 @@
       <HDRHTU>
         <NAME>HL_htu.h</NAME>
       </HDRHTU>
-      <SRCHET/>
+      <SRCHET>
+        <NAME>HL_het.c</NAME>
+      </SRCHET>
       <HET2ASMHDR>
         <NAME/>
       </HET2ASMHDR>
@@ -666,7 +670,7 @@
         <PATH>include\HL_sci.h</PATH>
       </HDRSCI>
       <SRCSCI>
-        <PATH/>
+        <PATH>source\HL_sci.c</PATH>
       </SRCSCI>
     </FILENAMES>
   </SCI>
@@ -753,7 +757,7 @@
         <PATH>include\HL_htu.h</PATH>
       </HDRHTU>
       <SRCHET>
-        <PATH/>
+        <PATH>source\HL_het.c</PATH>
       </SRCHET>
     </FILENAMES>
   </HET>

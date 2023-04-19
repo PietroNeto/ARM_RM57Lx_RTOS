@@ -1,0 +1,221 @@
+/** @file HL_sys_main.c 
+*   @brief Application main file
+*   @date 11-Dec-2018
+*   @version 04.07.01
+*
+*   This file contains an empty main function,
+*   which can be used for the application.
+*/
+
+/* 
+* Copyright (C) 2009-2018 Texas Instruments Incorporated - www.ti.com  
+* 
+* 
+*  Redistribution and use in source and binary forms, with or without 
+*  modification, are permitted provided that the following conditions 
+*  are met:
+*
+*    Redistributions of source code must retain the above copyright 
+*    notice, this list of conditions and the following disclaimer.
+*
+*    Redistributions in binary form must reproduce the above copyright
+*    notice, this list of conditions and the following disclaimer in the 
+*    documentation and/or other materials provided with the   
+*    distribution.
+*
+*    Neither the name of Texas Instruments Incorporated nor the names of
+*    its contributors may be used to endorse or promote products derived
+*    from this software without specific prior written permission.
+*
+*  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+*  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+*  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+*  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+*  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+*  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+*  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+*  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+*  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+*  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+*  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*
+*/
+
+
+/* USER CODE BEGIN (0) */
+#include "HL_gio.h"
+#include "FreeRTOS.h"
+#include "os_task.h"
+#include "os_queue.h"
+#include "os_semphr.h"
+#include "HL_etpwm.h"
+#include "HL_adc.h"
+#include "HL_sci.h"
+#include "os_timer.h"
+#include <stdio.h>
+#include <math.h>
+/* USER CODE END */
+
+/* Include Files */
+
+#include "HL_sys_common.h"
+
+/* USER CODE BEGIN (1) */
+#define GPIO_PORTA_BASE gioPORTB
+#define GPIO_PIN_6 6
+#define portTICK_PERIOD_uS ((float) 1000000/configTICK_RATE_HZ)
+#define PI 3.14159265358979323846
+
+
+double *theta_address;
+
+/* USER CODE END */
+
+/** @fn void main(void)
+*   @brief Application main function
+*   @note This function is empty by default.
+*
+*   This function is called after startup.
+*   The user can use this function to implement the application.
+*/
+
+/* USER CODE BEGIN (2) */
+void LED_Task(void* pvParameters)
+{
+    while(1)
+    {
+        gioSetBit(GPIO_PORTA_BASE, GPIO_PIN_6, 1);
+        vTaskDelay(500000 / portTICK_PERIOD_uS);
+        gioSetBit(GPIO_PORTA_BASE, GPIO_PIN_6, 0);
+        vTaskDelay(500000 / portTICK_PERIOD_uS);
+    }
+}
+
+void pll_sync(void* pvParameters)
+{
+    double freq = 60;
+    adcData_t adc_input[3];
+    static double delta_theta = 0, integral = 0;
+    const double Kp = 0.5, Ki = 0.2, Ts = 0.0001, Ts_multiplier = 1e-6, adc_scale_factor = 1.0 / 4096.0;
+    double phase[3], error = 0, sum = 0, average_phase = 0;
+    static double theta=0;
+    theta_address = &theta;
+
+    while(1)
+    {
+        adcStartConversion(adcREG1, 2U);
+        while((adcIsConversionComplete(adcREG1,adcGROUP1))==0);
+        adcGetData(adcREG1, 2U,&adc_input[0]);
+
+        for(int i=0;i<3;i++){
+            phase[i] = 2 * PI * freq * Ts_multiplier * i + asin(adc_input[i] * adc_scale_factor);
+            sum += phase[i];
+        }
+        average_phase = sum / 3.0;
+        delta_theta = average_phase - theta;
+        error = delta_theta - freq * Ts * 2 * PI;
+        integral += Ki * error * Ts;
+        theta += Kp * error + integral;
+        if (theta > 2 * PI) theta -= 2 * PI;
+        if (theta < 0) theta += 2 * PI;
+
+        vTaskDelay(100 / portTICK_PERIOD_uS);
+    }
+
+}
+void transf_abc_dq(float *Idq, float *Iabc)
+{
+    double theta = *theta_address;
+    Idq[0] = 2*( cos(theta)*Iabc[0] + cos(theta-2*PI/3)*Iabc[1] + cos(theta+2*PI/3)*Iabc[2])/3;
+    Idq[1] = 2*(-sin(theta)*Iabc[0] - sin(theta-2*PI/3)*Iabc[1] - sin(theta+2*PI/3)*Iabc[2])/3;
+}
+
+void transf_dq_abc(float *Idq, float *Iabc)
+{
+    double theta = *theta_address;
+    Iabc[0] = cos(theta)*Idq[0]        - sin(theta       )*Idq[1] + 2500;
+    Iabc[1] = cos(theta-2*PI/3)*Idq[0] - sin(theta-2*PI/3)*Idq[1] + 2500;
+    Iabc[2] = cos(theta+2*PI/3)*Idq[0] - sin(theta+2*PI/3)*Idq[1] + 2500;
+}
+
+void PWM_Control_Task (TimerHandle_t pxTimer)
+{
+    static float Id_erro0=0, Id_erro1=0, Id_erro2=0, Id_erro3=0, Iq_erro0=0, Iq_erro1=0, Iq_erro2=0, Iq_erro3=0, Id, Iq, Idref = 114.0*5, Iqref = 0;
+    static float controled0=0, controled1=0, controled2=0, controled3=0, controleq0=0, controleq1=0 , controleq2=0, controleq3=0;
+    float Idq[2], Iabc[3];
+
+    //ADC Corrente
+    adcData_t adc_data[3];
+    adcStartConversion(adcREG1, 1U);
+    while((adcIsConversionComplete(adcREG1,adcGROUP1))==0);
+    adcGetData(adcREG1, 1U,&adc_data[0]);
+    Iabc[0] = (float)adc_data[3].value - 2035; //ADC19
+    Iabc[1] = (float)adc_data[4].value - 2035; //ADC20
+    Iabc[2] = (float)adc_data[5].value - 2035; //ADC21
+
+    //transformada abc-dq0
+    transf_abc_dq(Idq, Iabc);
+    Id = Idq[0]; Iq = Idq[1];
+
+    //controle d
+    Id_erro0 = Id_erro1;
+    Id_erro1 = Id_erro2;
+    Id_erro2 = Id_erro3;
+    Id_erro3 = Idref - Id;
+    controled0 = controled1;
+    controled1 = controled2;
+    controled2 = controled3;
+    controled3 = 8.404*Id_erro3-7.818*Id_erro2-8.393*Id_erro1+7.828*Id_erro0+0.6727*controled2+
+                 0.3005*controled1+0.02679*controled0;
+
+    //controle q
+    Iq_erro0 = Iq_erro1;
+    Iq_erro1 = Iq_erro2;
+    Iq_erro2 = Iq_erro3;
+    Iq_erro3 = Iqref - Iq;
+    controleq0 = controleq1;
+    controleq1 = controleq2;
+    controleq2 = controleq3;
+    controleq3 = 8.404*Iq_erro3-7.818*Iq_erro2-8.393*Iq_erro1+7.828*Iq_erro0+0.6727*controleq2+
+                 0.3005*controleq1+0.02679*controleq0;
+
+    //transformada dq0 - abc
+    Idq[0] = controled3;
+    Idq[1] = controleq3;
+
+    //inv_transf_clarkpark(Iabc, Idq, seno);
+
+    //PWM
+    etpwmSetCmpA(etpwmREG5, Iabc[0]);
+    etpwmSetCmpA(etpwmREG1, Iabc[1]);
+    etpwmSetCmpA(etpwmREG4, Iabc[2]);
+}
+/* USER CODE END */
+
+int main(void)
+{
+/* USER CODE BEGIN (3) */
+    gioInit();
+    adcInit();
+    sciInit();
+    etpwmInit();
+    etpwmStartTBCLK();
+
+    TimerHandle_t xTimer =xTimerCreate( "Timer",            // Just a text name, not used by the kernel.
+                                         1,                 // The timer period in ticks.
+                                         pdTRUE,            // The timers will auto-reload themselves when they expire.
+                                         ( void * ) 1,      // Assign each timer a unique id equal to its array index.
+                                         PWM_Control_Task   // Each timer calls the same callback when it expires.
+                                     );
+    xTimerStart( xTimer, 0 );
+    xTaskCreate(LED_Task, "LED_Task", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
+    vTaskStartScheduler();
+    while(1);
+/* USER CODE END */
+
+    return 0;
+}
+
+
+/* USER CODE BEGIN (4) */
+/* USER CODE END */

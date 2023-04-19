@@ -27,6 +27,19 @@ source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Cont
 source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_list.h
 source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_queue.h
 source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_semphr.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_etpwm.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_etpwm.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_adc.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_adc.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_sci.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_sci.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_timer.h
+source/HL_sys_main.obj: C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_list.h
+source/HL_sys_main.obj: C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h
+source/HL_sys_main.obj: C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h
+source/HL_sys_main.obj: C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/math.h
+source/HL_sys_main.obj: C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_defs.h
+source/HL_sys_main.obj: C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_limits.h
 
 ../source/HL_sys_main.c:
 
@@ -81,4 +94,30 @@ C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_
 C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_queue.h:
 
 C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_semphr.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_etpwm.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_etpwm.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_adc.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_adc.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_sci.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/HL_reg_sci.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_timer.h:
+
+C:/Users/pietr/OneDrive/Arquivos\ Mestrado/Firmware/Controle\ RTOS/Inverte_RTOS_Control_Sys/include/os_list.h:
+
+C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h:
+
+C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h:
+
+C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/math.h:
+
+C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_defs.h:
+
+C:/ti/ccs1220/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_limits.h:
 
